@@ -852,7 +852,6 @@
                         this.exportAllSubs();
                         break;
                     case "resetInbounds":
-                        this.resetAllTraffic();
                         break;
                     case "resetClients":
                         this.resetAllClientTraffics(-1);
@@ -889,7 +888,6 @@
                         this.copyToClipboard(dbInbound.id);
                         break;
                     case "resetTraffic":
-                        this.resetTraffic(dbInbound.id);
                         break;
                     case "resetClients":
                         this.resetAllClientTraffics(dbInbound.id);
@@ -898,7 +896,6 @@
                         this.openCloneInbound(dbInbound);
                         break;
                     case "delete":
-                        this.delInbound(dbInbound.id);
                         break;
                     case "delDepletedClients":
                         this.delDepletedClients(dbInbound.id)
