@@ -30,17 +30,23 @@ func (s InboundService) GetInbounds(userId int) ([]model.Inbound, error) {
         return nil, err
     }
 
-    var inbounds []*model.Inbound
+    var inboundPointers []*model.Inbound
     if isSudo {
         // If the user is a superuser, return all inbounds
-        err = db.Model(&model.Inbound{}).Preload("ClientStats").Find(&inbounds).Error
+        err = db.Model(&model.Inbound{}).Preload("ClientStats").Find(&inboundPointers).Error
     } else {
         // If the user is not a superuser, return inbounds filtered by userId
-        err = db.Model(&model.Inbound{}).Preload("ClientStats").Where("user_id = ?", userId).Find(&inbounds).Error
+        err = db.Model(&model.Inbound{}).Preload("ClientStats").Where("user_id = ?", userId).Find(&inboundPointers).Error
     }
 
     if err != nil && err != gorm.ErrRecordNotFound {
         return nil, err
+    }
+
+    // Convert []*model.Inbound to []model.Inbound
+    inbounds := make([]model.Inbound, len(inboundPointers))
+    for i, inboundPointer := range inboundPointers {
+        inbounds[i] = *inboundPointer
     }
 
     return inbounds, nil
