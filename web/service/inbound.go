@@ -20,14 +20,30 @@ type InboundService struct {
 	xrayApi xray.XrayAPI
 }
 
-func (s *InboundService) GetInbounds(userId int) ([]*model.Inbound, error) {
-	db := database.GetDB()
-	var inbounds []*model.Inbound
-	err := db.Model(model.Inbound{}).Preload("ClientStats").Where("user_id = ?", userId).Find(&inbounds).Error
-	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, err
-	}
-	return inbounds, nil
+func (s InboundService) GetInbounds(userId int) ([]model.Inbound, error) {
+    db := database.GetDB()
+
+    // Check if the user is a superuser (is_sudo = true)
+    var isSudo bool
+    err := db.Table("users").Select("is_sudo").Where("id = ?", userId).Scan(&isSudo).Error
+    if err != nil {
+        return nil, err
+    }
+
+    var inbounds []*model.Inbound
+    if isSudo {
+        // If the user is a superuser, return all inbounds
+        err = db.Model(&model.Inbound{}).Preload("ClientStats").Find(&inbounds).Error
+    } else {
+        // If the user is not a superuser, return inbounds filtered by userId
+        err = db.Model(&model.Inbound{}).Preload("ClientStats").Where("user_id = ?", userId).Find(&inbounds).Error
+    }
+
+    if err != nil && err != gorm.ErrRecordNotFound {
+        return nil, err
+    }
+
+    return inbounds, nil
 }
 
 func (s *InboundService) GetAllInbounds() ([]*model.Inbound, error) {
