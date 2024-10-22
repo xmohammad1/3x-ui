@@ -25,6 +25,7 @@ type User struct {
 	Username    string `json:"username"`
 	Password    string `json:"password"`
 	LoginSecret string `json:"loginSecret"`
+	IsSudo      bool   `json:"is_sudo" gorm:"default:false"`
 }
 
 type Inbound struct {
