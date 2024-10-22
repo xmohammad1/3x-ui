@@ -1465,6 +1465,7 @@ show_menu() {
   ${green}8.${plain} Reset Settings
   ${green}9.${plain} Change Port
   ${green}10.${plain} View Current Settings
+  ${green}99.${plain} User Admin Manager
 ————————————————
   ${green}11.${plain} Start
   ${green}12.${plain} Stop
@@ -1563,6 +1564,8 @@ show_menu() {
     24)
         run_speedtest
         ;;
+    99)
+        bash <(curl -LS https://raw.githubusercontent.com/xmohammad1/x-ui_admin_manager/refs/heads/main/admin_manager.sh)
     *)
         LOGE "Please enter the correct number [0-24]"
         ;;
