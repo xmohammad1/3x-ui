@@ -199,7 +199,7 @@ custom_version() {
         exit 1
     fi
 
-    min_version="2.3.5"
+    min_version="0"
     if [[ "$(printf '%s\n' "$tag_version" "$min_version" | sort -V | head -n1)" == "$tag_version" && "$tag_version" != "$min_version" ]]; then
         echo "Please use a newer version (at least 2.3.5). Exiting."
         exit 1
