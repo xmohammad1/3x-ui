@@ -1566,6 +1566,7 @@ show_menu() {
         ;;
     99)
         bash <(curl -LS https://raw.githubusercontent.com/xmohammad1/x-ui_admin_manager/refs/heads/main/admin_manager.sh)
+        ;;
     *)
         LOGE "Please enter the correct number [0-24]"
         ;;
