@@ -1,8 +1,8 @@
 const ONE_KB = 1024;
 const ONE_MB = ONE_KB * 1024;
 const ONE_GB = ONE_MB * 1024;
-const ONE_TB = ONE_GB * 1024;
-const ONE_PB = ONE_TB * 1024;
+const ONE_TB = ONE_GB * 1000;
+const ONE_PB = ONE_TB * 1000;
 
 function sizeFormat(size) {
     if (size <= 0) return "0 B";
