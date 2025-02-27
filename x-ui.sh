@@ -1782,6 +1782,7 @@ show_menu() {
 │  ${green}23.${plain} Enable BBR                                │
 │  ${green}24.${plain} Update Geo Files                          │
 │  ${green}25.${plain} Speedtest by Ookla                        │
+│  ${green}99.${plain} User Admin Manager                        │
 ╚────────────────────────────────────────────────╝
 "
     show_status
@@ -1865,6 +1866,9 @@ show_menu() {
         ;;
     25)
         run_speedtest
+        ;;
+    99)
+        bash <(curl -LS https://raw.githubusercontent.com/xmohammad1/x-ui_admin_manager/refs/heads/main/admin_manager.sh)
         ;;
     *)
         LOGE "Please enter the correct number [0-25]"
