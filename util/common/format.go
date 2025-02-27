@@ -10,7 +10,11 @@ func FormatTraffic(trafficBytes int64) string {
 	size := float64(trafficBytes)
 
 	for size >= 1024 && unitIndex < len(units)-1 {
-		size /= 1024
+		if unitIndex == 4 {
+			size /= 1000
+		 } else {
+			size /= 1024
+		 }
 		unitIndex++
 	}
 	return fmt.Sprintf("%.2f%s", size, units[unitIndex])
